@@ -2,15 +2,15 @@
  * Use this file to define custom functions and blocks.
  * Read more at https://makecode.microbit.org/blocks/custom
  */
-enum Unidad_Distancia {
+enum Unitat_Distancia {
     //% block="mm" enumval=0
-    Unidad_Distancia_mm,
+    Unidat_Distancia_mm,
 
     //% block="cm" enumval=1
-    Unidad_Distancia_cm,
+    Unidat_Distancia_cm,
 
     //% block="inch" enumval=2
-    Unidad_Distancia_inch,
+    Unidat_Distancia_inch,
 }
 
 
@@ -21,17 +21,17 @@ enum Unidad_Distancia {
 namespace sonarbit {
 
     /**
-    * obté la distancia ultrasonica
+    * Obté la distància ultrasònica
     */
-    //% blockId=sonarbit block="Ultrasonic distance in unit %unidad_distancia |at|pin %pin"
+    //% blockId=sonarbit block="Distància ultrasònica en %unitat_distancia |al|pin %pin"
     //% weight=10
-    export function sonarbit_distancia(unidad_distancia: Unidad_Distancia, pin: DigitalPin): number {
+    export function sonarbit_distancia(unidat_distancia: Unitat_Distancia, pin: DigitalPin): number {
 
         // send pulse
         pins.setPull(pin, PinPullMode.PullNone)
         pins.digitalWritePin(pin, 0)
         control.waitMicros(2)
-        pins.digitalWritePin(pin, 1)
+        pins.digitalWritePin(pin, 0)
         control.waitMicros(10)
         pins.digitalWritePin(pin, 0)
 
@@ -40,10 +40,10 @@ namespace sonarbit {
         let distancia = d * 9 / 6 / 58
 
         if (distancia > 400) {
-            distancia = 0
+            distancia = 401
         }
 
-        switch (unidad_distancia) {
+        switch (unidat_distancia) {
             case 0:
                 return Math.floor(distancia * 10) //mm
                 break
