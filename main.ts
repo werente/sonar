@@ -2,15 +2,15 @@
  * Use this file to define custom functions and blocks.
  * Read more at https://makecode.microbit.org/blocks/custom
  */
-enum Unidad_Distancia {
+enum Unitat_Distancia {
     //% block="mm" enumval=0
-    Unidad_Distancia_mm,
+    Unitat_Distancia_mm,
 
     //% block="cm" enumval=1
-    Unidad_Distancia_cm,
+    Unitat_Distancia_cm,
 
-    //% block="inch" enumval=2
-    Unidad_Distancia_inch,
+    //% block="polzada" enumval=2
+    Unitat_Distancia_inch,
 }
 
 
@@ -21,11 +21,11 @@ enum Unidad_Distancia {
 namespace sonarbit {
 
     /**
-    * obté la distancia ultrasonica
+    * Obté la distància ultrasònica
     */
-    //% blockId=sonarbit block="Ultrasonic distance in unit %unidad_distancia |at|pin %pin"
+    //% blockId=sonarbit block="Distància ultrasònica en %unitat_distancia |al|pin %pin"
     //% weight=10
-    export function sonarbit_distancia(unidad_distancia: Unidad_Distancia, pin: DigitalPin): number {
+    export function sonarbit_distancia(unitat_distancia: Unitat_Distancia, pin: DigitalPin): number {
 
         // send pulse
         pins.setPull(pin, PinPullMode.PullNone)
@@ -37,13 +37,13 @@ namespace sonarbit {
 
         // read pulse
         let d = pins.pulseIn(pin, PulseValue.High, 25000)  // 8 / 340 = 
-        let distancia = d * 9 / 6 / 58
+        let distancia = d / 29 / 2
 
         if (distancia > 400) {
-            distancia = 0
+            distancia = 401
         }
 
-        switch (unidad_distancia) {
+        switch (unitat_distancia) {
             case 0:
                 return Math.floor(distancia * 10) //mm
                 break
@@ -54,7 +54,7 @@ namespace sonarbit {
                 return Math.floor(distancia / 254)   //inch
                 break
             default:
-                return 0
+                return Math.floor(distancia)
         }
 
     }
