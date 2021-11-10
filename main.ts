@@ -4,13 +4,14 @@
  */
 enum Unitat_Distancia {
     //% block="mm" enumval=0
-    Unidat_Distancia_mm,
+
+    Unitat_Distancia_mm,
 
     //% block="cm" enumval=1
-    Unidat_Distancia_cm,
+    Unitat_Distancia_cm,
 
-    //% block="inch" enumval=2
-    Unidat_Distancia_inch,
+    //% block="polzada" enumval=2
+    Unitat_Distancia_inch,
 }
 
 
@@ -25,7 +26,7 @@ namespace sonarbit {
     */
     //% blockId=sonarbit block="Distància ultrasònica en %unitat_distancia |al|pin %pin"
     //% weight=10
-    export function sonarbit_distancia(unidat_distancia: Unitat_Distancia, pin: DigitalPin): number {
+    export function sonarbit_distancia(unitat_distancia: Unitat_Distancia, pin: DigitalPin): number {
 
         // send pulse
         pins.setPull(pin, PinPullMode.PullNone)
@@ -37,13 +38,13 @@ namespace sonarbit {
 
         // read pulse
         let d = pins.pulseIn(pin, PulseValue.High, 25000)  // 8 / 340 = 
-        let distancia = d * 9 / 6 / 58
+        let distancia = d / 29 / 2
 
         if (distancia > 400) {
             distancia = 401
         }
 
-        switch (unidat_distancia) {
+        switch (unitat_distancia) {
             case 0:
                 return Math.floor(distancia * 10) //mm
                 break
@@ -54,7 +55,7 @@ namespace sonarbit {
                 return Math.floor(distancia / 254)   //inch
                 break
             default:
-                return 0
+                return Math.floor(distancia)
         }
 
     }
