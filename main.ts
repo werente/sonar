@@ -4,6 +4,7 @@
  */
 enum Unitat_Distancia {
     //% block="mm" enumval=0
+
     Unitat_Distancia_mm,
 
     //% block="cm" enumval=1
@@ -31,7 +32,7 @@ namespace sonarbit {
         pins.setPull(pin, PinPullMode.PullNone)
         pins.digitalWritePin(pin, 0)
         control.waitMicros(2)
-        pins.digitalWritePin(pin, 1)
+        pins.digitalWritePin(pin, 0)
         control.waitMicros(10)
         pins.digitalWritePin(pin, 0)
 
